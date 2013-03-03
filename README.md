@@ -29,6 +29,7 @@ SUPPORT provides packaging and deployment for the following projects:
 
 * [GitLab CI](https://github.com/gitlabhq/gitlab-ci)
 * [Jenkins](http://jenkins-ci.org)
+* [Travis CI](https://travis-ci.org)
 
 #### Ruby:
 
