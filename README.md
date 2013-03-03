@@ -7,13 +7,55 @@
 SUPPORT is a CLI gem that enables simple Capistrano enabled Berkshelf Chef cookbook deploys by packaging the source code to common OSS Ruby and Agile management projects and providing cookbooks that install those projects & packages from source (without sudo privileges when possible).
 SUPPORT is only possible because of the amazing OSS tools that power it.
 
-SUPORT uses:
+SUPPORT uses:
 
 * [chef](http://www.opscode.com/chef/)
 * [berkshelf](http://berkshelf.com/)
 * Tutorials from [Atomic Object](http://atomicobject.com):
   * [Chef Solo with Capistrano](http://spin.atomicobject.com/2012/12/18/chef-solo-with-capistrano/)
   * [Chef Solo with Capistrano and Berkshelf](http://spin.atomicobject.com/2013/01/03/berks-simplifying-chef-solo-cookbook-management-with-berkshelf/)
+
+SUPPORT provides packaging and deployment for the following projects:
+
+#### Provisioning:
+
+* [Chef Server](http://docs.opscode.com/#the-chef-server)
+
+#### Git:
+
+* [GitLab HQ](https://github.com/gitlabhq/gitlabhq)
+
+#### Continuous Integration:
+
+* [GitLab CI](https://github.com/gitlabhq/gitlab-ci)
+* [Jenkins](http://jenkins-ci.org)
+
+#### Ruby:
+
+* [Gem in a Box](https://github.com/cwninja/geminabox)
+* [RVM::FW](https://github.com/stevenhaddox/rvm_fw)
+
+#### Errors:
+
+* [Errbit](https://github.com/errbit/errbit)
+
+#### E-Mail / SMTP:
+
+* [Mailcatcher](http://mailcatcher.me)
+
+#### Agile Project Management:
+
+* [ChiliProject](https://www.chiliproject.org)
+* [Fulcrum](https://github.com/malclocke/fulcrum)
+* [Redmine](http://www.redmine.org)
+
+#### Metrics:
+
+* [FnordMetric](https://github.com/paulasmuth/fnordmetric)
+
+#### Security:
+
+* [Snorby](https://snorby.org)
 
 ## Usage:
 
