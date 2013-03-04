@@ -40,6 +40,11 @@ SUPPORT provides packaging and deployment for the following projects:
 
 * [Errbit](https://github.com/errbit/errbit)
 
+#### Logs:
+
+* [Logstash](http://logstash.net)
+* [Kibana](http://kibana.org)
+
 #### E-Mail / SMTP:
 
 * [Mailcatcher](http://mailcatcher.me)
