@@ -22,6 +22,12 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency("gli", "~> 2.5")
 
+  spec.add_runtime_dependency("capistrano")
+  spec.add_runtime_dependency("capistrano-ext")
+  spec.add_runtime_dependency("rvm-capistrano")
+  spec.add_runtime_dependency("chef")
+  spec.add_runtime_dependency("berkshelf", "~> 1.2.0.rc")
+
   spec.add_development_dependency("aruba", "~> 0.5")
   spec.add_development_dependency("awesome_print", "~> 1.1")
   spec.add_development_dependency("bundler", "~> 1.3")

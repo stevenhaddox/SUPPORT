@@ -95,3 +95,9 @@ From within your network where you'll be running your deploy you need to do a fe
         $ support drop
 
 6. Fix any configuration errors by adding the needed commands to as described in step 4 and rerun step 5 until it's working properly.
+
+## Notes
+
+Chef configuration information in [/chef](chef).
+
+Capistrano configuration information in [/config](config).
