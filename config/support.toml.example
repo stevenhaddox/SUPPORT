@@ -1,4 +1,4 @@
-pub_key_path = "$HOME/id_dsa.pub"
+pub_key_path = "$HOME/.ssh/id_dsa.pub"
 
 [servers]
 
