@@ -25,8 +25,9 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency("capistrano")
   spec.add_runtime_dependency("capistrano-ext")
   spec.add_runtime_dependency("rvm-capistrano")
-  spec.add_runtime_dependency("chef")
   spec.add_runtime_dependency("berkshelf", "~> 1.2.0")
+  spec.add_runtime_dependency("chef", "~> 11.4")
+  spec.add_runtime_dependency("toml")
 
   spec.add_development_dependency("aruba", "~> 0.5")
   spec.add_development_dependency("awesome_print", "~> 1.1")
