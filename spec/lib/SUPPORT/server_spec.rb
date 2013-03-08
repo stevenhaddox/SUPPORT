@@ -5,11 +5,19 @@ describe "Server" do
     @server = SUPPORT::Server.new('primary')
   end
 
-  describe ".login" do
-    it "should authenticate to the specified remote server" do
+  describe ".initialize" do
+    it "should init attributes from config" do
       config_server = SUPPORT.config["servers"]["primary"]
+      @server.ip.should == config_server["ip"]
+      @server.port.should == config_server["port"]
       @server.user.should == config_server["user"]
       @server.password = config_server["password"]
+      @server.hostname = config_server["hostname"]
+    end
+  end
+
+  describe ".login" do
+    it "should authenticate to the specified remote server" do
       pending
     end
   end

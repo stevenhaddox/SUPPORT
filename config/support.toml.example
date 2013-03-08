@@ -4,6 +4,7 @@ pubkey_path = "$HOME/.ssh/id_dsa.pub"
 
   [servers.primary]
   ip = "33.33.33.10"
+  port = "22"
   hostname = "vagrant.vm"
   user = "vagrant"
   password = "vagrant"
@@ -11,12 +12,14 @@ pubkey_path = "$HOME/.ssh/id_dsa.pub"
 # Add as many servers as you need Capistrano to work on
 #  [servers.chef_server]
 #  ip = "33.33.33.11"
+#  port = "22"
 #  hostname = "vagrant.vm"
 #  user = "vagrant"
 #  password = "vagrant"
 #
 #  [servers.logs]
 #  ip = "33.33.33.12"
+#  port = "22"
 #  hostname = "vagrant.vm"
 #  user = "vagrant"
 #  password = "vagrant"
