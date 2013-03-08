@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "SUPPORT" do
+describe SUPPORT do
 
   describe "#config" do
     it "should load the values from config/support.toml" do

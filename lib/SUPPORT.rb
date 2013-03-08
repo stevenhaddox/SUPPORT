@@ -1,5 +1,6 @@
 require "SUPPORT/version"
 require 'toml'
+require 'SUPPORT/server'
 
 module SUPPORT
 
