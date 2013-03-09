@@ -34,7 +34,9 @@ describe "Server" do
 
   describe ".scp" do
     it "should copy a local file to the server" do
-      server_response = @server.scp("#{Dir.home}/.ssh/id_dsa.pub","/home/#{@server.user}/.ssh/id_dsa.pub")
+      `rm /tmp/SUPPORT_tmp.txt`
+      `touch /tmp/SUPPORT_tmp.txt`
+      server_response = @server.scp("/tmp/SUPPORT_tmp.txt")
       server_response.success.should == true
     end
   end
@@ -45,7 +47,11 @@ describe "Server" do
     end
 
     it "should copy the pubkey to the remote server" do
-      pending
+      @server.setup
+      server_response = @server.exec{"ls /home/#{@server.user}/id_dsa.pub"}
+      server_response.stdout.should == "/home/vagrant/id_dsa.pub\n"
+      server_response = @server.exec{"cat /home/#{@server.user}/.ssh/authorized_keys"}
+      #server_response.stdout.should include("#{exec(cat $HOME/.ssh/id_dsa.pub)}")
     end
   end
 end

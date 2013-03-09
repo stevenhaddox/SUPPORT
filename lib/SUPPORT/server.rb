@@ -30,7 +30,8 @@ module SUPPORT
       end
     end
 
-    def scp(local_file, remote_file)
+    def scp(local_file, remote_file=nil)
+      remote_file ||= local_file
       begin
         Net::SSH::Simple.scp_put(hostname, local_file, remote_file, {:user => @user, :port => @port})
       rescue => e
@@ -39,5 +40,17 @@ module SUPPORT
       end
     end
 
+    def setup
+      scp("#{Dir.home}/.ssh/id_dsa.pub","/home/#{user}/id_dsa.pub")
+      response = exec do
+        "if grep -f \"$HOME/id_dsa.pub\" $HOME/.ssh/authorized_keys
+         then
+           echo 'SSH pubkey already in authorized_keys!'
+         else
+           cat $HOME/id_dsa.pub >> $HOME/.ssh/authorized_keys
+           rm $HOME/id_dsa.pub
+         fi"
+      end
+    end
   end
 end
