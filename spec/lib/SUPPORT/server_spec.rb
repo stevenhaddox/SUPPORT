@@ -16,9 +16,19 @@ describe "Server" do
     end
   end
 
-  describe ".login" do
+  describe ".exec" do
     it "should authenticate to the specified remote server" do
-      pending
+      server_response = @server.exec{''}
+      server_response.stdout.should == ""
+      server_response.success.should == true
+      server_response.exit_code.should == 0
+    end
+
+    it "should run a command block remotely on the server" do
+      server_response = @server.exec{'hostname'}
+      server_response.stdout.should == "vagrant-c5-x86_64\n"
+      server_response.success.should == true
+      server_response.exit_code.should == 0
     end
   end
 
