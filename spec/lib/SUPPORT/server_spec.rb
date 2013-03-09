@@ -32,6 +32,13 @@ describe "Server" do
     end
   end
 
+  describe ".scp" do
+    it "should copy a local file to the server" do
+      server_response = @server.scp("#{Dir.home}/.ssh/id_dsa.pub","/home/#{@server.user}/.ssh/id_dsa.pub")
+      server_response.success.should == true
+    end
+  end
+
   describe ".setup" do
     it "should have access to the pubkey location" do
       SUPPORT.config["pubkey_path"].should == "$HOME/.ssh/id_dsa.pub"
