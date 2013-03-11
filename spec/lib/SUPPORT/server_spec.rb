@@ -41,17 +41,21 @@ describe "Server" do
     end
   end
 
-  describe ".setup" do
+  describe ".eval_pubkey_path" do
     it "should have access to the pubkey location" do
       SUPPORT.config["pubkey_path"].should == "$HOME/.ssh/id_dsa.pub"
     end
 
+    it "should eval the pubkey to expand the file's path" do
+      @server.eval_pubkey_path.should == "#{`echo $HOME`.rstrip}"+"/.ssh/id_dsa.pub"
+    end
+  end
+
+  describe ".scp_pubkey" do
     it "should copy the pubkey to the remote server" do
-      @server.setup
-      server_response = @server.exec{"ls /home/#{@server.user}/id_dsa.pub"}
-      server_response.stdout.should == "/home/vagrant/id_dsa.pub\n"
+      @server.scp_pubkey
       server_response = @server.exec{"cat /home/#{@server.user}/.ssh/authorized_keys"}
-      #server_response.stdout.should include("#{exec(cat $HOME/.ssh/id_dsa.pub)}")
+      server_response.stdout.should include(`cat #{@server.eval_pubkey_path}`)
     end
   end
 end

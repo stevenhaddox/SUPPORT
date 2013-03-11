@@ -41,7 +41,15 @@ module SUPPORT
     end
 
     def setup
-      scp("#{Dir.home}/.ssh/id_dsa.pub","/home/#{user}/id_dsa.pub")
+
+    end
+
+    def eval_pubkey_path
+      `ls "#{SUPPORT.config["pubkey_path"]}"`.rstrip
+    end
+
+    def scp_pubkey
+      scp(eval_pubkey_path, "/home/#{user}/id_dsa.pub")
       response = exec do
         "if grep -f \"$HOME/id_dsa.pub\" $HOME/.ssh/authorized_keys
          then
