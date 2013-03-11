@@ -104,4 +104,9 @@ Capistrano configuration information in [/config](config).
 
 ## Test Suite
 
-To run the test suite ensure you have a Vagrant running via `vagrant up` and that you've customized [config/support.toml.example](config/support.toml.example) in `config/support.toml` for your environment.
+To run the test suite ensure you have a Vagrant instance running via `vagrant up` and that you've customized [config/support.toml.example](config/support.toml.example) in `config/support.toml` for your environment.
+
+```bash
+$ bundle install
+$ bundle exec rake
+```
