@@ -49,7 +49,7 @@ module SUPPORT
     end
 
     def scp_pubkey
-      scp(eval_pubkey_path, "/home/#{user}/id_dsa.pub")
+      scp(eval_pubkey_path, "id_dsa.pub")
       response = exec do
         "if grep -f \"$HOME/id_dsa.pub\" $HOME/.ssh/authorized_keys
          then
