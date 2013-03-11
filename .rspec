@@ -1,0 +1,6 @@
+--color
+--format nested
+#--format progress
+#--require emoji-rspec
+#--format hearts
+#--format NyanCatFormatter
