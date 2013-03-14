@@ -1,15 +1,15 @@
 require 'net/ssh/simple'
 module SUPPORT
   class Server
-    attr_accessor :role, :ip, :port, :hostname, :user, :password
+    attr_accessor :role, :ip, :port, :hostname, :user, :password, :root
 
-    def initialize(role="primary")
+    def initialize(role="primary",user="app")
       server ||= SUPPORT.config["servers"]["#{role}"]
       @role     = role
       @ip       = server["ip"]
       @port     = server["port"]
-      @user     = server["user"]
-      @password = server["password"]
+      @user     = server["users"]["#{user}"]["username"]
+      @password = server["users"]["#{user}"]["password"]
       @hostname = server["hostname"]
       server
     end

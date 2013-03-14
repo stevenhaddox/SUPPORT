@@ -7,12 +7,12 @@ describe "Server" do
 
   describe ".initialize" do
     it "should init attributes from config" do
-      config_server = SUPPORT.config["servers"]["primary"]
-      @server.ip.should == config_server["ip"]
-      @server.port.should == config_server["port"]
-      @server.user.should == config_server["user"]
-      @server.password = config_server["password"]
-      @server.hostname = config_server["hostname"]
+      config_server           = SUPPORT.config["servers"]["primary"]
+      @server.ip.should       == config_server["ip"]
+      @server.port.should     == config_server["port"]
+      @server.user.should     == config_server["users"]["app"]["username"]
+      @server.password.should == config_server["users"]["app"]["password"]
+      @server.hostname.should == config_server["hostname"]
     end
   end
 
