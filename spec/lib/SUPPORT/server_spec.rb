@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Server" do
   before :each do
-    @server = SUPPORT::Server.new('primary')
+    @server = SUPPORT::Server.new('primary','app')
   end
 
   describe ".initialize" do

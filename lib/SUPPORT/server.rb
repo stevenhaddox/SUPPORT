@@ -3,7 +3,7 @@ module SUPPORT
   class Server
     attr_accessor :role, :ip, :port, :hostname, :user, :password, :root
 
-    def initialize(role="primary",user="app")
+    def initialize(role="primary",user="install")
       user = user.to_s
       @role     = role.to_s
 

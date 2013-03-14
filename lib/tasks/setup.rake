@@ -3,11 +3,11 @@ require 'awesome_print'
 
 namespace :support do
   desc "Test server connectivity"
-  task :test, :server_name do |t, args|
-    args.with_defaults(:server_name => "primary")
-    server = SUPPORT::Server.new(args[:server_name])
+  task :test, :server_name, :user_role do |t, args|
+    args.with_defaults(:server_name => "primary",:user_role => "install")
+    server = SUPPORT::Server.new(args[:server_name],args[:user_role])
     begin
-      response = server.exec "uname -a"
+      response = server.exec{ "uname -a" }
       ap response.stdout
     rescue => e
       raise e
@@ -15,9 +15,9 @@ namespace :support do
   end
 
   desc "Initialize a new SUPPORT Server"
-  task :setup, :server_name do |t, args|
-    args.with_defaults(:server_name => "primary")
-    server = SUPPORT::Server.new(args[:server_name])
+  task :setup, :server_name, :user_role do |t, args|
+    args.with_defaults(:server_name => "primary",:user_role => "install")
+    server = SUPPORT::Server.new(args[:server_name],args[:user_role])
     puts "[#{server.hostname}]"
     puts "  Copying SSH Key..."
     response = server.scp_pubkey
