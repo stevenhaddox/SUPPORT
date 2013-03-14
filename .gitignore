@@ -13,6 +13,7 @@ Gemfile.lock
 .*.sw[a-z]
 *.un~
 chef/cookbooks
+config/support.toml
 *.tar.gz
 InstalledFiles
 _yardoc

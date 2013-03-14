@@ -4,12 +4,14 @@ module SUPPORT
     attr_accessor :role, :ip, :port, :hostname, :user, :password, :root
 
     def initialize(role="primary",user="app")
-      server ||= SUPPORT.config["servers"]["#{role}"]
-      @role     = role
+      user = user.to_s
+      @role     = role.to_s
+
+      server  ||= SUPPORT.config["servers"][role]
       @ip       = server["ip"]
       @port     = server["port"]
-      @user     = server["users"]["#{user}"]["username"]
-      @password = server["users"]["#{user}"]["password"]
+      @user     = server["users"][user]["username"]
+      @password = server["users"][user]["password"]
       @hostname = server["hostname"]
       server
     end
@@ -19,29 +21,25 @@ module SUPPORT
       host ||= ip
     end
 
-    def exec(&block)
+    def exec &block
       begin
         # attempt key-based, passwordless authentication
         # prompts for password if key-based auth not configured
-        Net::SSH::Simple.ssh(hostname, yield, {:user => @user, :port => @port})
+        Net::SSH::Simple.ssh(hostname, yield, login_params)
       rescue => e
         puts "SSH key-based auth or stdin password failed. Attempting with configuration password..."
-        Net::SSH::Simple.ssh(hostname, yield, {:user => @user, :password => @password, :port => @port})
+        Net::SSH::Simple.ssh(hostname, yield, login_params(true))
       end
     end
 
     def scp(local_file, remote_file=nil)
       remote_file ||= local_file
       begin
-        Net::SSH::Simple.scp_put(hostname, local_file, remote_file, {:user => @user, :port => @port})
+        Net::SSH::Simple.scp_put(hostname, local_file, remote_file, login_params)
       rescue => e
         puts "SCP with key-based auth or stdin password failed. Attempting with configuration password..."
-        Net::SSH::Simple.scp_put(hostname, local_file, remote_file, {:user => @user, :password => @password, :port => @port})
+        Net::SSH::Simple.scp_put(hostname, local_file, remote_file, login_params(true))
       end
-    end
-
-    def setup
-
     end
 
     def eval_pubkey_path
@@ -60,5 +58,18 @@ module SUPPORT
          fi"
       end
     end
+
+    def setup
+
+    end
+
+private
+
+    def login_params(use_password=false)
+      opts = { :user => user, :port => port }
+      opts[:password] = password if use_password==true
+      opts
+    end
+
   end
 end
