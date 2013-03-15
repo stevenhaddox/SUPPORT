@@ -1,7 +1,7 @@
 require 'net/ssh/simple'
 module SUPPORT
   class Server
-    attr_accessor :role, :ip, :port, :hostname, :user, :password, :root
+    attr_accessor :role, :ip, :port, :hostname, :users, :password, :root
 
     def initialize(role="primary",user="install")
       user = user.to_s
@@ -10,10 +10,15 @@ module SUPPORT
       server  ||= SUPPORT.config["servers"][role]
       @ip       = server["ip"]
       @port     = server["port"]
-      @user     = server["users"][user]["username"]
-      @password = server["users"][user]["password"]
       @hostname = server["hostname"]
-      server
+      @users    = server["users"].map do |user|
+        User.new(user[0], user[1]["username"], user[1]["password"])
+      end
+    end
+
+    User = Struct.new(:role, :username, :password) {}
+    def user(role='install')
+      users.collect{|u| u if u.role==role.to_s}.compact.first
     end
 
     def hostname

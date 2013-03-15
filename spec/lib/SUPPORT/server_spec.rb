@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Server" do
   before :each do
-    @server = SUPPORT::Server.new('primary','app')
+    @server = SUPPORT::Server.new('primary')
   end
 
   describe ".initialize" do
@@ -10,9 +10,26 @@ describe "Server" do
       config_server           = SUPPORT.config["servers"]["primary"]
       @server.ip.should       == config_server["ip"]
       @server.port.should     == config_server["port"]
-      @server.user.should     == config_server["users"]["app"]["username"]
-      @server.password.should == config_server["users"]["app"]["password"]
       @server.hostname.should == config_server["hostname"]
+    end
+  end
+
+  describe ".users" do
+    it "should return a collection of users" do
+      users = [['root','root'],['install','admin'],['personal','steven'],['app','vagrant']]
+      password = 'vagrant'
+      @server.users.should == users.map {|u| SUPPORT::Server::User.new(u[0],u[1],password) }
+    end
+  end
+
+  describe ".user" do
+    it "should return the install user by default" do
+      @server.user.should == SUPPORT::Server::User.new('install','admin','vagrant')
+    end
+
+    it "should return the user matching the role given" do
+      @server.user('app').should == SUPPORT::Server::User.new('app','vagrant','vagrant')
+      @server.user(:root).should == SUPPORT::Server::User.new('root','root','vagrant')
     end
   end
 
