@@ -16,7 +16,7 @@ describe "Server" do
 
   describe ".users" do
     it "should return a collection of users" do
-      users = [['root','root'],['install','admin'],['personal','steven'],['app','vagrant']]
+      users = [['root','root'],['install','sysadmin'],['personal','steven'],['app','vagrant']]
       password = 'vagrant'
       @server.users.should == users.map {|u| SUPPORT::Server::User.new(u[0],u[1],password) }
     end
@@ -24,7 +24,7 @@ describe "Server" do
 
   describe ".user" do
     it "should return the install user by default" do
-      @server.user.should == SUPPORT::Server::User.new('install','admin','vagrant')
+      @server.user.should == SUPPORT::Server::User.new('install','sysadmin','vagrant')
     end
 
     it "should return the user matching the role given" do
@@ -33,8 +33,20 @@ describe "Server" do
     end
   end
 
+  describe ".current_user" do
+    it "should return the default user if not assigned" do
+      @server.current_user.should == @server.user(:install)
+    end
+
+    it "should assign & access current_user" do
+      @server.current_user= :app
+      @server.current_user.should == @server.user(:app)
+    end
+  end
+
   describe ".exec" do
     it "should authenticate to the specified remote server" do
+      @server.current_user= :app
       server_response = @server.exec{''}
       server_response.stdout.should == ""
       server_response.success.should == true
@@ -42,19 +54,11 @@ describe "Server" do
     end
 
     it "should run a command block remotely on the server" do
+      @server.current_user= :app
       server_response = @server.exec{'hostname'}
       server_response.stdout.should == "vagrant-c5-x86_64\n"
       server_response.success.should == true
       server_response.exit_code.should == 0
-    end
-  end
-
-  describe ".scp" do
-    it "should copy a local file to the server" do
-      `rm /tmp/SUPPORT_tmp.txt`
-      `touch /tmp/SUPPORT_tmp.txt`
-      server_response = @server.scp("/tmp/SUPPORT_tmp.txt")
-      server_response.success.should == true
     end
   end
 
@@ -68,8 +72,19 @@ describe "Server" do
     end
   end
 
+  describe ".scp" do
+    it "should copy a local file to the server" do
+      `rm /tmp/SUPPORT_tmp.txt`
+      `touch /tmp/SUPPORT_tmp.txt`
+      @server.current_user= :app
+      server_response = @server.scp("/tmp/SUPPORT_tmp.txt")
+      server_response.success.should == true
+    end
+  end
+
   describe ".scp_pubkey" do
     it "should copy the pubkey to the remote server" do
+      @server.current_user= :app
       @server.scp_pubkey
       server_response = @server.exec{"cat /home/#{@server.user}/.ssh/authorized_keys"}
       server_response.stdout.should include(`cat #{@server.eval_pubkey_path}`)

@@ -1,10 +1,9 @@
 require 'net/ssh/simple'
 module SUPPORT
   class Server
-    attr_accessor :role, :ip, :port, :hostname, :users, :password, :root
+    attr_accessor :role, :ip, :port, :hostname, :users, :current_user
 
-    def initialize(role="primary",user="install")
-      user = user.to_s
+    def initialize(role="primary")
       @role     = role.to_s
 
       server  ||= SUPPORT.config["servers"][role]
@@ -19,6 +18,14 @@ module SUPPORT
     User = Struct.new(:role, :username, :password) {}
     def user(role='install')
       users.collect{|u| u if u.role==role.to_s}.compact.first
+    end
+
+    def current_user=(role)
+      @current_user = user(role)
+    end
+
+    def current_user
+      @current_user ||= user
     end
 
     def hostname
@@ -71,8 +78,8 @@ module SUPPORT
 private
 
     def login_params(use_password=false)
-      opts = { :user => user, :port => port }
-      opts[:password] = password if use_password==true
+      opts = { :user => current_user.username, :port => port }
+      opts[:password] = current_user.password if use_password==true
       opts
     end
 

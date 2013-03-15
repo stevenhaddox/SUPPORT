@@ -10,23 +10,12 @@ pubkey_path = "$HOME/.ssh/id_dsa.pub"
     username = "root"
     password = "vagrant"
     [servers.primary.users.install]
-    username = "admin"
+    username = "sysadmin"
     password = "vagrant"
     [servers.primary.users.personal]
     username = "steven"
     password = "vagrant"
     [servers.primary.users.app]
-    username = "vagrant"
-    password = "vagrant"
-
-  [servers.errors]
-  ip = "33.33.33.10"
-  port = "22"
-  hostname = "vagrant.vm"
-    [servers.errors.users.install]
-    username = "admin"
-    password = "vagrant"
-    [servers.errors.users.app]
     username = "vagrant"
     password = "vagrant"
 
