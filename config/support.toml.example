@@ -6,8 +6,18 @@ pubkey_path = "$HOME/.ssh/id_dsa.pub"
   ip = "33.33.33.10"
   port = "22"
   hostname = "vagrant.vm"
-  user = "vagrant"
-  password = "vagrant"
+    [servers.primary.users.root]
+    username = "root"
+    password = "vagrant"
+    [servers.primary.users.install]
+    username = "sysadmin"
+    password = "vagrant"
+    [servers.primary.users.personal]
+    username = "steven"
+    password = "vagrant"
+    [servers.primary.users.app]
+    username = "vagrant"
+    password = "vagrant"
 
 # Add as many servers as you need Capistrano to work on
 #  [servers.chef_server]
