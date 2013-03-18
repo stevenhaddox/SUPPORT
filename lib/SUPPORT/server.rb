@@ -59,20 +59,17 @@ module SUPPORT
     end
 
     def scp_pubkey
-      scp(eval_pubkey_path, "id_dsa.pub")
+      scp(eval_pubkey_path, "#{current_user.role}_id.pub")
       response = exec do
-        "if grep -f \"$HOME/id_dsa.pub\" $HOME/.ssh/authorized_keys
+        "if grep -f \"$HOME/#{current_user.role}_id.pub\" $HOME/.ssh/authorized_keys
          then
            echo 'SSH pubkey already in authorized_keys!'
          else
-           cat $HOME/id_dsa.pub >> $HOME/.ssh/authorized_keys
-           rm $HOME/id_dsa.pub
+           cat $HOME/#{current_user.role}_id.pub >> $HOME/.ssh/authorized_keys
          fi"
       end
-    end
-
-    def setup
-
+      exec{ "rm $HOME/#{current_user.role}_id.pub" }
+      response
     end
 
 private

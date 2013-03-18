@@ -84,10 +84,14 @@ describe "Server" do
 
   describe ".scp_pubkey" do
     it "should copy the pubkey to the remote server" do
-      @server.current_user= :app
-      @server.scp_pubkey
-      server_response = @server.exec{"cat /home/#{@server.user}/.ssh/authorized_keys"}
-      server_response.stdout.should include(`cat #{@server.eval_pubkey_path}`)
+      @server.current_user = :app
+      # backup existing authorized_keys
+      @server.exec{"cp $HOME/.ssh/authorized_keys $HOME/.ssh/authorized_keys.bak"}
+      # copy pubkey to server
+      server_response = @server.exec{"cat $HOME/#{@server.current_user}/.ssh/authorized_keys"}
+      server_response.stdout.should == ""
+      # restore backed up authorized_keys
+      @server.exec{"mv $HOME/.ssh/authorized_keys.bak $HOME/.ssh/authorized_keys"}
     end
   end
 end
