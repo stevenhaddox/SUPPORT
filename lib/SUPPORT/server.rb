@@ -6,7 +6,7 @@ module SUPPORT
     def initialize(role="primary")
       @role     = role.to_s
 
-      server  ||= SUPPORT.config["servers"][role]
+      server    = SUPPORT.config["servers"][role]
       @ip       = server["ip"]
       @port     = server["port"]
       @hostname = server["hostname"]
