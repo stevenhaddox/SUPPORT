@@ -11,11 +11,10 @@ module SUPPORT
       @port     = server["port"]
       @hostname = server["hostname"]
       @users    = server["users"].map do |user|
-        User.new(user[0], user[1]["username"], user[1]["password"])
+        SUPPORT::User.new(:role => user[0], :username => user[1]["username"], :password => user[1]["password"])
       end
     end
 
-    User = Struct.new(:role, :username, :password) {}
     def user(role='install')
       users.collect{|u| u if u.role==role.to_s}.compact.first
     end

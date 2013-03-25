@@ -1,6 +1,9 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'SUPPORT'
+require 'factory_girl'
+FactoryGirl.find_definitions
+require 'awesome_print'
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
