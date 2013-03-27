@@ -6,12 +6,16 @@ describe "ServerUser" do
   end
 
   describe ".initialize" do
-    it "should init with a server" do
-      @server_user.server.role.should eql(SUPPORT::Server.new(@server_user.server.role).role)
+    it "should instantiate with valid params" do
+      SUPPORT::ServerUser.new({:role => "primary"}).class.should == SUPPORT::ServerUser
     end
 
-    it "should assign users for the server" do
-      @server_user.users.count.should == 4
+    it "should not be valid without a server role" do
+      lambda { SUPPORT::ServerUser.new({}) }.should raise_error(KeyError)
+    end
+
+    it "should assign users" do
+      @server_user.users.count.should > 0
     end
   end
 
@@ -24,15 +28,17 @@ describe "ServerUser" do
 
   describe ".find" do
     it "should return the user matching the role given" do
-      app_user = @server_user.find('app')
-      app_user.role.should == "app"
-      app_user.username.should == "vagrant"
-      app_user.password.should == "vagrant"
+      user = @server_user.find('app')
+      user.role.should == "app"
+      user.username.should == "vagrant"
+      user.password.should == "vagrant"
+    end
 
-      root_user = @server_user.find(:root)
-      root_user.role.should == "root"
-      root_user.username.should == "root"
-      root_user.password.should == "vagrant"
+    it "should return the user found when given a role as a symbole" do
+      user = @server_user.find(:root)
+      user.role.should == "root"
+      user.username.should == "root"
+      user.password.should == "vagrant"
     end
   end
 

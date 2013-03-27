@@ -3,20 +3,23 @@ module SUPPORT
   class Server
     attr_accessor :role, :ip, :port, :hostname, :users, :current_user
 
-    def initialize(role="primary")
-      @role     = role.to_s
+    def initialize(args={})
+      args      = defaults.merge(args)
+      @role     = args[:role].to_s
 
-      server    = SUPPORT.config["servers"][role]
-      @ip       = server["ip"]
-      @port     = server["port"]
-      @hostname = server["hostname"]
-      @users    = server["users"].map do |user|
-        SUPPORT::User.new(:role => user[0], :username => user[1]["username"], :password => user[1]["password"])
-      end
+      config    = SUPPORT.config["servers"][role]
+      @ip       = config["ip"]
+      @port     = config["port"]
+      @hostname = config["hostname"]
+      @users    = SUPPORT::ServerUser.new({:role => @role})
+    end
+
+    def defaults
+      {:role => "primary"}
     end
 
     def user(role='install')
-      users.collect{|u| u if u.role==role.to_s}.compact.first
+      users.all.collect{|u| u if u.role==role.to_s}.compact.first
     end
 
     def current_user=(role)

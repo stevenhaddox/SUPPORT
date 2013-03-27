@@ -2,9 +2,9 @@ module SUPPORT
   class ServerUser
     attr_accessor :server, :users
 
-    def initialize(role)
-      @server = SUPPORT::Server.new(role.to_s)
-      SUPPORT.config["servers"][@server.role]["users"].each{|data| add_user(data) }
+    def initialize(args)
+      role = args.fetch(:role)
+      SUPPORT.config["servers"][role]["users"].each{|data| add_user(data) }
     end
 
     def add_user(data)

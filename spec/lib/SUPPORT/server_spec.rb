@@ -8,23 +8,19 @@ describe "Server" do
   describe ".initialize" do
     it "should init attributes from config" do
       config_server           = SUPPORT.config["servers"]["primary"]
+      @server.role.should     == "primary"
       @server.ip.should       == config_server["ip"]
       @server.port.should     == config_server["port"]
       @server.hostname.should == config_server["hostname"]
     end
   end
 
-#  describe ".user" do
-#    it "should return the install user by default" do
-#      @server.user.role.should == SUPPORT::User.new('install','sysadmin','vagrant').role
-#    end
-#
-#    it "should return the user matching the role given" do
-#      pending
-#      @server.user('app').should == SUPPORT::User.new('app','vagrant','vagrant')
-#      @server.user(:root).should == SUPPORT::User.new('root','root','vagrant')
-#    end
-#  end
+  describe ".users" do
+    it "should return all server users" do
+      server_users = SUPPORT::ServerUser.new({:role => @server.role})
+      @server.users.all.map{|u| [u.role, u.username]}.should =~ server_users.all.map{|u| [u.role, u.username]}
+    end
+  end
 
   describe ".current_user" do
     it "should return the default user if not assigned" do
@@ -32,8 +28,10 @@ describe "Server" do
     end
 
     it "should assign & access current_user" do
-      @server.current_user= :app
-      @server.current_user.should == @server.user(:app)
+      @server.current_user = :app
+      @server.current_user.should == @server.users.find('app')
+      @server.current_user = :root
+      @server.current_user.should == @server.users.find(:root)
     end
   end
 

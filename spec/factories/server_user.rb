@@ -9,7 +9,7 @@ FactoryGirl.define do
       role "primary"
     end
 
-    initialize_with { new(role) }
+    initialize_with { new({:role => role}) }
   end
 
 end
