@@ -2,6 +2,8 @@
 
 **S**etting **U**p & **P**rovisioning **P**ragmatic **O**SS **R**uby **T**echnologies
 
+[![Build Status](https://travis-ci.org/stevenhaddox/SUPPORT.png?branch=master)](https://travis-ci.org/stevenhaddox/SUPPORT) [![Dependency Status](https://gemnasium.com/stevenhaddox/SUPPORT.png)](https://gemnasium.com/stevenhaddox/SUPPORT) [![Code Climate](https://codeclimate.com/github/stevenhaddox/SUPPORT.png)](https://codeclimate.com/github/stevenhaddox/SUPPORT)
+
 ## NOTE:
 
 SUPPORT is using Readme Driven Development. The information that follows is the ultimate goals for SUPPORT, but most of it has not yet been implemented. BDD & TDD are being used. Simply run: `bundle exec rspec` to see what features have been implemented thus far within SUPPORT.
