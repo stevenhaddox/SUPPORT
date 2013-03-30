@@ -2,6 +2,10 @@
 
 **S**etting **U**p & **P**rovisioning **P**ragmatic **O**SS **R**uby **T**echnologies
 
+## NOTE:
+
+SUPPORT is using Readme Driven Development. The information that follows is the ultimate goals for SUPPORT, but most of it has not yet been implemented. BDD & TDD are being used. Simply run: `bundle exec rspec` to see what features have been implemented thus far within SUPPORT.
+
 ## About:
 
 SUPPORT is a CLI gem that enables simple Capistrano enabled Berkshelf Chef cookbook deploys by packaging the source code to common OSS Ruby and Agile management projects and providing cookbooks that install those projects & packages from source (without sudo privileges when possible).
