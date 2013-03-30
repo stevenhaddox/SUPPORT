@@ -3,7 +3,7 @@ module SUPPORT
   class Server
     attr_accessor :role, :ip, :port, :hostname, :users, :current_user
 
-    def initialize(args={})
+    def initialize args={}
       args      = defaults.merge(args)
       @role     = args[:role].to_s
 
@@ -19,20 +19,14 @@ module SUPPORT
     end
 
     def installer
-      user   = users.find('root')
-      user ||= users.find('install')
-      user ||= users.find('personal')
-      user ||= users.find('app')
+      users.find_by_role_priority %w(root install personal app)
     end
 
     def deployer
-      user   = users.find('app')
-      user ||= users.find('personal')
-      user ||= users.find('install')
-      user ||= users.find('root')
+      users.find_by_role_priority %w(app personal install root)
     end
 
-    def current_user=(role)
+    def current_user= role
       @current_user = users.find(role)
     end
 
@@ -56,7 +50,7 @@ module SUPPORT
       end
     end
 
-    def scp(local_file, remote_file=nil)
+    def scp local_file, remote_file=nil
       remote_file ||= local_file
       begin
         Net::SSH::Simple.scp_put(hostname, local_file, remote_file, login_params)
@@ -86,7 +80,7 @@ module SUPPORT
 
 private
 
-    def login_params(use_password=false)
+    def login_params use_password=false
       opts = { :user => current_user.username, :port => port }
       opts[:password] = current_user.password if use_password==true
       opts
