@@ -23,15 +23,23 @@ describe "Server" do
   end
 
   describe ".current_user" do
-    it "should return the default user if not assigned" do
-      @server.current_user.should == @server.user(:install)
-    end
-
     it "should assign & access current_user" do
       @server.current_user = :app
       @server.current_user.should == @server.users.find('app')
-      @server.current_user = :root
-      @server.current_user.should == @server.users.find(:root)
+      @server.current_user = :install
+      @server.current_user.should == @server.users.find(:install)
+    end
+  end
+
+  describe ".installer" do
+    it "should return the user who will install system services" do
+      @server.installer.username.should == SUPPORT::ServerUser.new({:role => @server.role}).find('install').username
+    end
+  end
+
+  describe ".deployer" do
+    it "should return the user who will deploy applications" do
+      @server.deployer.username.should == SUPPORT::ServerUser.new({:role => @server.role}).find('app').username
     end
   end
 

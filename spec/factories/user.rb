@@ -5,10 +5,12 @@ FactoryGirl.define do
       username "sysadmin"
       password "vagrant"
       role     "install"
+      enabled  true
     end
 
     trait :root do
       role "root"
+      enabled false
     end
 
     trait :install do
@@ -23,7 +25,7 @@ FactoryGirl.define do
       role "vagrant"
     end
 
-    initialize_with { new({:username => username, :password => password, :role => role}) }
+    initialize_with { new({:username => username, :password => password, :role => role, :enabled => enabled}) }
   end
 
 end

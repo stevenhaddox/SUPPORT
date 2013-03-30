@@ -10,6 +10,7 @@ describe "User" do
       @user.role.should     == "install"
       @user.username.should == "sysadmin"
       @user.password.should == "vagrant"
+      @user.enabled.should  == true
     end
   end
 

@@ -18,12 +18,22 @@ module SUPPORT
       {:role => "primary"}
     end
 
-    def user(role='install')
-      users.all.collect{|u| u if u.role==role.to_s}.compact.first
+    def installer
+      user   = users.find('root')
+      user ||= users.find('install')
+      user ||= users.find('personal')
+      user ||= users.find('app')
+    end
+
+    def deployer
+      user   = users.find('app')
+      user ||= users.find('personal')
+      user ||= users.find('install')
+      user ||= users.find('root')
     end
 
     def current_user=(role)
-      @current_user = user(role)
+      @current_user = users.find(role)
     end
 
     def current_user

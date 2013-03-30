@@ -9,14 +9,28 @@ module SUPPORT
 
     def add_user(data)
       @users ||= []
-      @users << SUPPORT::User.new({:role => data[0], :username => data[1]["username"], :password => data[1]["password"]})
+      @users << SUPPORT::User.new({
+        :role => data[0],
+        :username => data[1]["username"],
+        :password => data[1]["password"],
+        :enabled  => data[1]["enabled"]
+      })
     end
 
     def all
       @users
     end
 
-    def find(role)
+    def find(role, opts={})
+      opts[:include_disabled] ||= false
+      opts[:include_disabled]==true ? find_and_include_disabled(role) : find_enabled(role)
+    end
+
+    def find_enabled(role)
+      all.collect{|user| user if user.role == role.to_s && user.enabled == true}.compact.first
+    end
+
+    def find_and_include_disabled(role)
       all.collect{|user| user if user.role == role.to_s}.compact.first
     end
 
