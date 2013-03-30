@@ -57,4 +57,14 @@ describe "ServerUser" do
     end
   end
 
+  describe ".find_by_role_priority" do
+    it "should return the first enabled user matching the order of roles given" do
+      prioritized_roles = %w(root personal install app)
+      user = @server_user.find_by_role_priority prioritized_roles
+      user.role.should     == "install"
+      user.username.should == "sysadmin"
+      user.enabled.should  == true
+    end
+  end
+
 end
