@@ -27,11 +27,11 @@ module SUPPORT
     end
 
     def find_enabled role
-      all.collect{|user| user if user.role == role.to_s && user.enabled == true}.compact.first
+      all.select{|user| user.role == role.to_s && user.enabled}.compact.first
     end
 
     def find_and_include_disabled role
-      all.collect{|user| user if user.role == role.to_s}.compact.first
+      all.select{|user| user.role == role.to_s}.compact.first
     end
 
     def find_by_role_priority roles
