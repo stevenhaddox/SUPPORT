@@ -1,0 +1,15 @@
+language: ruby
+branches:
+  only:
+    - travis
+rvm:
+  - 1.9.3
+# uncomment this line if your project needs to run something other than `rake`:
+script: bundle exec rspec
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq dkms build-essential
+  - wget http://download.virtualbox.org/virtualbox/4.2.10/virtualbox-4.2_4.2.10-84104~Ubuntu~precise_i386.deb -O ~/VirtualBox.deb
+  - sudo apt-get -f install
+  - sudo dpkg -i ~/VirtualBox.deb
+  - vagrant up
