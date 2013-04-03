@@ -95,7 +95,7 @@ From within your network where you'll be running your deploy you need to do a fe
 
         $ bundle install --local
 
-4. Prepare to deploy your SUPPORT drop. In order to do this you'll have to work through some issues as you try to run your deploy and make changes to your environment (hopefully these will be minimal as SUPPORT tries not to assume any more privileges than absolutely required). These custom commands that need to be run should be created in the `custom_commands.rb` (#TODO: Figure out the real name & location of this file) file so that they are easily repeatable. This file is automically processed at the beginning of each SUPPORT drop and allows you to ensure a consistent environment should you SUPPORT environment expand to additional servers in the future.
+4. Prepare to deploy your SUPPORT drop. In order to do this you'll have to work through some issues as you try to run your deploy and make changes to your environment (hopefully these will be minimal as SUPPORT tries not to assume any more privileges than absolutely required). These custom commands that need to be run should be created in the `custom_commands.rb` (#TODO: Figure out the real name & location of this file) file so that they are easily repeatable. This file is automically processed at the beginning of each SUPPORT drop and allows you to ensure a consistent environment should your SUPPORT environment expand to additional servers in the future.
 5. Deploy your customized SUPPORT drop to your SUPPORT server:
 
         $ support drop
