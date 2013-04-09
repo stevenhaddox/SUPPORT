@@ -1,4 +1,4 @@
-pubkey_path = "$HOME/.ssh/id_dsa.pub"
+pubkey_path = "./config/id_rsa.vagrant.support.pub"
 
 [servers]
 

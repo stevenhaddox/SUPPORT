@@ -61,18 +61,35 @@ module SUPPORT
     end
 
     def eval_pubkey_path
-      `ls "#{SUPPORT.config["pubkey_path"]}"`.rstrip
+      File.absolute_path SUPPORT.config["pubkey_path"]
+    end
+
+    def pubkey
+      `cat "#{eval_pubkey_path}"`.rstrip
+    end
+
+    def pubkey_exists?
+      response = exec {
+        "grep '#{pubkey}' $HOME/.ssh/authorized_keys"
+      }
+      response.exit_code == 0 ? true : false
+    end
+
+    def add_pubkey
+      unless pubkey_exists?
+        response = exec do
+          "echo '#{pubkey}' >> $HOME/.ssh/authorized_keys"
+        end
+      end
+      response
     end
 
     def scp_pubkey
       scp(eval_pubkey_path, "#{current_user.role}_id.pub")
-      response = exec do
-        "if grep -f \"$HOME/#{current_user.role}_id.pub\" $HOME/.ssh/authorized_keys
-         then
-           echo 'SSH pubkey already in authorized_keys!'
-         else
-           cat $HOME/#{current_user.role}_id.pub >> $HOME/.ssh/authorized_keys
-         fi"
+      unless pubkey_exists?
+        response = exec do
+          "cat $HOME/#{current_user.role}_id.pub >> $HOME/.ssh/authorized_keys"
+        end
       end
       exec{ "rm $HOME/#{current_user.role}_id.pub" }
       response
