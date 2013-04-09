@@ -1,6 +1,6 @@
 module SUPPORT
   class ServerUser
-    attr_accessor :server, :users
+    attr_accessor :server
 
     def initialize args
       role = args.fetch(:role)
@@ -8,8 +8,7 @@ module SUPPORT
     end
 
     def add_user data
-      @users ||= []
-      @users << SUPPORT::User.new({
+      users << SUPPORT::User.new({
         :role => data[0],
         :username => data[1]["username"],
         :password => data[1]["password"],
@@ -18,20 +17,24 @@ module SUPPORT
     end
 
     def all
-      @users
+      users
+    end
+
+    def users
+      @users ||= []
     end
 
     def find role, opts={}
-      opts[:include_disabled] ||= false
-      opts[:include_disabled]==true ? find_and_include_disabled(role) : find_enabled(role)
+      defaults = {include_disabled: false}.merge opts
+      defaults[:include_disabled] ? find_and_include_disabled(role) : find_enabled(role)
     end
 
     def find_enabled role
-      all.select{|user| user.role == role.to_s && user.enabled}.compact.first
+      all.detect{|user| user.role == role.to_s && user.enabled?}
     end
 
     def find_and_include_disabled role
-      all.select{|user| user.role == role.to_s}.compact.first
+      all.detect{|user| user.role == role.to_s}
     end
 
     def find_by_role_priority roles
@@ -41,6 +44,5 @@ module SUPPORT
       end
       user
     end
-
   end
 end
