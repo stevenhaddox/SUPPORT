@@ -1,4 +1,3 @@
-
 # Workflow for SUPPORT server automation:
 
 ## Update yum / apt repos MANUALLY
@@ -40,4 +39,28 @@
 
 ### Sources:
 
-stow_src_url: http://git.savannah.gnu.org/cgit/stow.git/snapshot/stow-2.2.0.tar.gz
+[stow_src_url](http://git.savannah.gnu.org/cgit/stow.git/snapshot/stow-2.2.0.tar.gz)
+
+[OpenJDK-64](http://www.java.net/download/jdk7u12/archive/b08/binaries/jdk-7u12-ea-bin-b08-linux-x64-03_jan_2013.tar.gz)
+[OpenJDK-32](http://www.java.net/download/jdk7u12/archive/b08/binaries/jdk-7u12-ea-bin-b08-linux-i586-03_jan_2013.tar.gz)
+
+    # Upload jdk-7u12-ea-bin-b08-linux-x64-03_jan_2013.tar.gz
+    $ cd ${SRC}
+    $ tar -xzvf jdk-7u12-ea-bin-b08-linux-x64-03_jan_2013.tar.gz
+    $ mv jdk1.7.0_12 ${STOW}
+    $ cd ${STOW}
+    $ stow jdk1.7.0_12
+    $ java -version
+    #=> java version "1.7.0_12-ea"
+    #=> Java(TM) SE Runtime Environment (build 1.7.0_12-ea-b08)
+    #=> Java HotSpot(TM) 64-Bit Server VM (build 24.0-b28, mixed mode)
+
+[Oracle JDK Download / License Page](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
+
+Direct download URLs after accepting the license:
+
+* [JDK-64bit](http://download.oracle.com/otn-pub/java/jdk/7u17-b02/jdk-7u17-linux-x64.tar.gz)
+* [JDK-32bit](http://download.oracle.com/otn-pub/java/jdk/7u17-b02/jdk-7u17-linux-i586.tar.gz)
+* [JDK-64bit.rpm](http://download.oracle.com/otn-pub/java/jdk/7u17-b02/jdk-7u17-linux-x64.rpm)
+
+
