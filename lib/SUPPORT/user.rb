@@ -2,6 +2,8 @@ module SUPPORT
   class User
     attr_accessor :role, :username, :password, :enabled
 
+    alias :enabled? :enabled 
+
     def initialize data
       @role = data[:role]
       @username = data[:username]

@@ -1,16 +1,14 @@
 require 'spec_helper'
 
 describe "User" do
-  before :each do
-    @user = FactoryGirl.build(:user)
-  end
+  let(:user) { FactoryGirl.build(:user) }
 
   describe ".initialize" do
     it "should assign attributes" do
-      @user.role.should     == "install"
-      @user.username.should == "sysadmin"
-      @user.password.should == "vagrant"
-      @user.enabled.should  == true
+      user.role.should     == "install"
+      user.username.should == "sysadmin"
+      user.password.should == "vagrant"
+      user.should be_enabled
     end
   end
 
