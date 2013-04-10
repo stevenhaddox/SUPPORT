@@ -10,7 +10,6 @@
 2. cat /home/app_user/<id_file>.pub >> /home/app_user/authorized_users
 3. rm /home/app_user/<id_file>.pub
 
-
 ## Test Capistrano Configuration
 
 1. Run cap uname task
@@ -33,13 +32,16 @@
     * Run bundler install --local $SUPPORT/src/chef-11.x.gem
 2. Setup stow
   * Run stow cookbook (should have no effect if ran manually before)
-3.
 
 
 
 ### Sources:
 
 [stow_src_url](http://git.savannah.gnu.org/cgit/stow.git/snapshot/stow-2.2.0.tar.gz)
+
+[bzip2_src_url](http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz)
+
+[python_src_url](http://www.python.org/ftp/python/2.7.3/Python-2.7.3.tgz)
 
 [OpenJDK-64](http://www.java.net/download/jdk7u12/archive/b08/binaries/jdk-7u12-ea-bin-b08-linux-x64-03_jan_2013.tar.gz)
 [OpenJDK-32](http://www.java.net/download/jdk7u12/archive/b08/binaries/jdk-7u12-ea-bin-b08-linux-i586-03_jan_2013.tar.gz)
@@ -62,5 +64,3 @@ Direct download URLs after accepting the license:
 * [JDK-64bit](http://download.oracle.com/otn-pub/java/jdk/7u17-b02/jdk-7u17-linux-x64.tar.gz)
 * [JDK-32bit](http://download.oracle.com/otn-pub/java/jdk/7u17-b02/jdk-7u17-linux-i586.tar.gz)
 * [JDK-64bit.rpm](http://download.oracle.com/otn-pub/java/jdk/7u17-b02/jdk-7u17-linux-x64.rpm)
-
-
