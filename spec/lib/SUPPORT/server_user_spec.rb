@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "ServerUser" do
+describe SUPPORT::ServerUser do
   let(:server_user) { FactoryGirl.build(:server_user, :primary) }
 
   describe ".initialize" do
