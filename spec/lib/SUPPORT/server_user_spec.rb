@@ -5,12 +5,24 @@ module SUPPORT
     let(:server_user) { FactoryGirl.build(:server_user, :primary) }
   
     describe ".initialize" do
-      it "should instantiate with valid params" do
-        SUPPORT::ServerUser.new({:role => "primary"}).class.should == SUPPORT::ServerUser
+      context "valid params" do
+        let(:params) do 
+          {:role => "primary"}
+        end 
+
+        it "should instantiate with valid params" do
+          described_class.new(params).class.should == SUPPORT::ServerUser
+        end
       end
-  
-      it "should not be valid without a server role" do
-        lambda { SUPPORT::ServerUser.new({}) }.should raise_error(KeyError)
+ 
+      context "invalid params" do 
+        let(:params) do
+          Hash.new
+        end
+
+        it "should not be valid without a server role" do
+          lambda { described_class.new(params) }.should raise_error(KeyError)
+        end
       end
   
       it "should assign users" do
@@ -21,7 +33,7 @@ module SUPPORT
     describe ".all" do
       it "should return a collection of all users" do
         server_user.all.count.should == 4
-        server_user.all.map{|u| u.class}.uniq.should == [SUPPORT::User]
+        server_user.all.map(&:class).uniq.should == [SUPPORT::User]
       end
     end
   
@@ -44,7 +56,7 @@ module SUPPORT
   
       it "should not return a user that is not enabled" do
         user = server_user.find(:root)
-        user.should == nil
+        user.should be_nil
       end
   
       it "should return a disabled user when sent the param ignore_disabled" do
