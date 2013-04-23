@@ -110,9 +110,40 @@ Capistrano configuration information in [/config](config).
 
 ## Test Suite
 
+### Default Vagrant Setup
+
+In order to run the test suite you'll need to create a custom `config/support.toml` file or use the following steps to configure your development environment to work with the expected defaults to access a running Vagrant VM with the example configuration file.
+
+Download Vagrant's **insecure** private key:
+
+```
+$ wget https://raw.github.com/mitchellh/vagrant/master/keys/vagrant -O $HOME/.ssh/id_rsa.vagrant
+```
+
+Setup the `vagrant.vm` resolver & SSH configuration for default key, username, etc.:
+
+```
+# /etc/hosts
+33.33.33.10 vagrant.vm # default vagrant IP
+```
+
+```
+# $HOME/.ssh/config
+Host vagrant.vm
+  IdentityFile ~/.ssh/id_rsa.vagrant
+  Hostname vagrant.vm
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+  User vagrant
+  LogLevel QUIET
+```
+
+### Running the Tests
+
 To run the test suite ensure you have a Vagrant instance running via `vagrant up` and that you've customized [config/support.toml.example](config/support.toml.example) in `config/support.toml` for your environment.
 
 ```bash
+$ vagrant up
 $ bundle install
 $ bundle exec rake
 ```
