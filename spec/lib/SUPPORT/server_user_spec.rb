@@ -43,7 +43,7 @@ module SUPPORT
         user.role.should     == "app"
         user.username.should == "vagrant"
         user.password.should == "vagrant"
-        user.enabled.should  == true
+        user.should be_enabled
       end
   
       it "should return the user found when given a role as a symbol" do
@@ -51,7 +51,7 @@ module SUPPORT
         user.role.should     == "install"
         user.username.should == "sysadmin"
         user.password.should == "vagrant"
-        user.enabled.should  == true
+        user.should be_enabled
       end
   
       it "should not return a user that is not enabled" do
@@ -64,7 +64,7 @@ module SUPPORT
         user.role.should     == "root"
         user.username.should == "root"
         user.password.should == "vagrant"
-        user.enabled.should  == false
+        user.should_not be_enabled
       end
     end
   
@@ -74,7 +74,7 @@ module SUPPORT
         user = server_user.find_by_role_priority prioritized_roles
         user.role.should     == "install"
         user.username.should == "sysadmin"
-        user.enabled.should  == true
+        user.should be_enabled
       end
     end
   
