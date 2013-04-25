@@ -112,7 +112,7 @@ Capistrano configuration information in [/config](config).
 
 ### Default Vagrant Setup
 
-In order to run the test suite you'll need to create a custom `config/support.toml` file or use the following steps to configure your development environment to work with the expected defaults to access a running Vagrant VM with the example configuration file.
+In order to run the test suite you'll need to create a custom [config/support.toml](config/support.toml.example) file or use the following steps to configure your development environment to work with the expected defaults to access a running Vagrant VM with the example configuration file.
 
 Download Vagrant's **insecure** private key:
 
@@ -139,8 +139,6 @@ Host vagrant.vm
 ```
 
 ### Running the Tests
-
-To run the test suite ensure you have a Vagrant instance running via `vagrant up` and that you've customized [config/support.toml.example](config/support.toml.example) in `config/support.toml` for your environment.
 
 ```bash
 $ vagrant up
