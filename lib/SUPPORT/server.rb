@@ -72,7 +72,7 @@ module SUPPORT
       response = exec {
         "grep '#{pubkey}' $HOME/.ssh/authorized_keys"
       }
-      response.exit_code == 0 ? true : false
+      response.exit_code == 0
     end
 
     def add_pubkey
@@ -99,7 +99,7 @@ private
 
     def login_params use_password=false
       opts = { :user => current_user.username, :port => port }
-      opts[:password] = current_user.password if use_password==true
+      opts[:password] = current_user.password if use_password
       opts
     end
 
