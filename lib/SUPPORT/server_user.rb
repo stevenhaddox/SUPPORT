@@ -20,6 +20,10 @@ module SUPPORT
       users
     end
 
+    def enabled
+      all.map{|u| u if u.enabled? }
+    end
+
     def users
       @users ||= []
     end
