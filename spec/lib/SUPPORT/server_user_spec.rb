@@ -39,7 +39,7 @@ module SUPPORT
 
     describe ".enabled" do
       it "should return a collection of all users that are enabled" do
-        enabled_users = server_user.all.map{|u| u if u.enabled? }
+        enabled_users = server_user.all.map{|u| u if u.enabled? }.compact
         server_user.enabled.should == enabled_users
       end
     end
