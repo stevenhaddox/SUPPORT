@@ -1,7 +1,7 @@
 require 'net/ssh/simple'
 module SUPPORT
   class Server
-    attr_accessor :role, :ip, :port, :hostname, :users, :current_user
+    attr_accessor :role, :ip, :port, :hostname, :users
 
     def initialize args={}
       args      = defaults.merge(args)
@@ -18,6 +18,11 @@ module SUPPORT
       {:role => "primary"}
     end
 
+    def hostname
+      host   = @hostname
+      host ||= @ip
+    end
+
     def installer
       users.find_by_role_priority %w(root install personal app)
     end
@@ -26,27 +31,44 @@ module SUPPORT
       users.find_by_role_priority %w(app personal install root)
     end
 
-    def current_user= role
-      @current_user = users.find(role)
+    def current_user= user_or_role
+      if user_or_role.class == SUPPORT::User
+        @current_user = user_or_role
+      else
+        @current_user = users.find(user_or_role, :include_disabled => true)
+      end
+      @current_user
     end
 
     def current_user
-      @current_user ||= user
+      @current_user
     end
 
-    def hostname
-      host = @hostname
-      host ||= ip
+    def switch_user new_user_role
+      raise Exceptions::Server::InvalidCurrentUser unless current_user
+      raise Exceptions::Server::InceptionUser if current_user.switched_to?
+      original_user_role = current_user.role
+      self.current_user = new_user_role
+      current_user.switched_from = original_user_role
+      current_user
     end
 
     def exec &block
+      if current_user.switched_to?
+        exec_with_context "sudo -u #{current_user.username} bash -c ", &block
+      else
+        exec_with_context( &block )
+      end
+    end
+
+    def exec_with_context prefix_cmd=nil, &block
       begin
         # attempt key-based, passwordless authentication
         # prompts for password if key-based auth not configured
-        Net::SSH::Simple.ssh(hostname, yield, login_params)
+        Net::SSH::Simple.ssh(hostname, "#{prefix_cmd} #{block.call}", login_params)
       rescue => e
         puts "SSH key-based auth or stdin password failed. Attempting with configuration password..."
-        Net::SSH::Simple.ssh(hostname, yield, login_params(true))
+        Net::SSH::Simple.ssh(hostname, "#{prefix_cmd} #{block.call}", login_params(true))
       end
     end
 
@@ -98,8 +120,9 @@ module SUPPORT
 private
 
     def login_params use_password=false
-      opts = { :user => current_user.username, :port => port }
-      opts[:password] = current_user.password if use_password
+      user = current_user.switched_to? ? users.find(current_user.switched_from, :include_disabled => true) : current_user
+      opts = { :user => user.username, :port => port }
+      opts[:password] = user.password if use_password
       opts
     end
 
