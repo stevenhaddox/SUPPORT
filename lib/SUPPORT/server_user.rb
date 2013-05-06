@@ -21,7 +21,7 @@ module SUPPORT
     end
 
     def enabled
-      users.map{|u| u if u.enabled? }.compact
+      users.select &:enabled?
     end
 
     def users
