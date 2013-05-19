@@ -15,11 +15,11 @@ pubkey_path = "./config/id_rsa.vagrant.support.pub"
     password = "vagrant"
     enabled  = true
     [servers.primary.users.personal]
-    username = "steven"
+    username = "support"
     password = "vagrant"
     enabled  = false
     [servers.primary.users.app]
-    username = "vagrant"
+    username = "deployer"
     password = "vagrant"
     enabled  = true
 
