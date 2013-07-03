@@ -2,7 +2,7 @@
 
 **S**etting **U**p & **P**rovisioning **P**ragmatic **O**SS **R**uby **T**echnologies
 
-[![Build Status](https://travis-ci.org/stevenhaddox/SUPPORT.png?branch=master)](https://travis-ci.org/stevenhaddox/SUPPORT) [![Dependency Status](https://gemnasium.com/stevenhaddox/SUPPORT.png)](https://gemnasium.com/stevenhaddox/SUPPORT) [![Code Climate](https://codeclimate.com/github/stevenhaddox/SUPPORT.png)](https://codeclimate.com/github/stevenhaddox/SUPPORT)
+[![Build Status](https://travis-ci.org/stevenhaddox/SUPPORT.png?branch=master)](https://travis-ci.org/stevenhaddox/SUPPORT) [![Dependency Status](https://gemnasium.com/stevenhaddox/SUPPORT.png)](https://gemnasium.com/stevenhaddox/SUPPORT) [![Code Climate](https://codeclimate.com/github/stevenhaddox/SUPPORT.png)](https://codeclimate.com/github/stevenhaddox/SUPPORT) [![Stories in Ready](http://badge.waffle.io/stevenhaddox/SUPPORT.png)](http://waffle.io/stevenhaddox/SUPPORT)
 
 ## NOTE:
 
