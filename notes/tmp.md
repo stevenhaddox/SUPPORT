@@ -39,7 +39,7 @@
 
 [gcc_src_url(http://ftp.gnu.org/gnu/gcc/gcc-4.7.3/gcc-4.7.3.tar.gz)
 
-[stow_src_url](http://git.savannah.gnu.org/cgit/stow.git/snapshot/stow-2.2.0.tar.gz)
+[stow_src_url](http://ftp.gnu.org/gnu/stow/stow-2.2.0.tar.gz)
 
 [bzip2_src_url](http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz)
 

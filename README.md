@@ -138,6 +138,20 @@ Host vagrant.vm
   LogLevel QUIET
 ```
 
+Download the SUPPORT customized Vagrant box:
+
+**Note**: Vagrant won't untar the SUPPORT box file currently, do the following
+steps manually:
+
+```bash
+$ wget http://bit.ly/SUPPORT-x64 -O ~/.vagrant/boxes/vagrant-centos59-x86_64-SUPPORT.box
+$ cd ~/.vagrant/boxes
+$ mkdir vagrant-centos59-x86_64-SUPPORT
+$ tar -xzvf vagrant-centos59-x86_64-SUPPORT.box -C vagrant-centos59-x86_64-SUPPORT/
+$ vagrant box list
+#=> vagrant-centos59-x86_64-SUPPORT
+```
+
 ### Running the Tests
 
 ```bash
