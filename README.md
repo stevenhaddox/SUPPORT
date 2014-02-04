@@ -145,3 +145,7 @@ $ vagrant up
 $ bundle install
 $ bundle exec rake
 ```
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/stevenhaddox/support/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
